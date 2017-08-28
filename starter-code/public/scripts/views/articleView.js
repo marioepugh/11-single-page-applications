@@ -49,17 +49,8 @@ var app = app || {};
     });
   };
 
-  /* TODO: Once the routes are handling '/' and '/about', we can delete
+  /* DONE: Once the routes are handling '/' and '/about', we can delete
       this handleMainNav function. YESSSS! */
-
-  articleView.handleMainNav = function() {
-    $('.main-nav').on('click', '.tab', function() {
-      $('.tab-content').hide();
-      $(`#${$(this).data('content')}`).fadeIn();
-    });
-
-    $('.main-nav .tab:first').click();
-  };
 
   articleView.setTeasers = function() {
     $('.article-body *:nth-of-type(n+2)').hide();
@@ -71,7 +62,7 @@ var app = app || {};
       } else {
         $('body').animate({
           scrollTop: ($(this).parent().offset().top)
-        },200);
+        }, 200);
         $(this).html('Read on &rarr;');
         $(this).parent().find('.article-body *:nth-of-type(n+2)').hide();
       }
@@ -83,18 +74,17 @@ var app = app || {};
     $('#filters').fadeIn();
     app.Article.all.forEach(article => {
       $('#articles').append(article.toHtml('#article-template'));
-      if($(`#category-filter option:contains("${article.category}")`).length === 0) {
+      if ($(`#category-filter option:contains("${article.category}")`).length === 0) {
         $('#category-filter').append(article.toHtml('#category-filter-template'));
       }
-      if($(`#author-filter option:contains("${article.author}")`).length === 0) {
+      if ($(`#author-filter option:contains("${article.author}")`).length === 0) {
         $('#author-filter').append(article.toHtml('#author-filter-template'));
       }
     });
-    /* TODO: Remember to also remove any invocations of handleMainNav... */
+    /* DONE: Remember to also remove any invocations of handleMainNav... */
     articleView.populateFilters();
     articleView.handleCategoryFilter();
     articleView.handleAuthorFilter();
-    articleView.handleMainNav();
     articleView.setTeasers();
     $('pre code').each((i, block) => hljs.highlightBlock(block));
   };
